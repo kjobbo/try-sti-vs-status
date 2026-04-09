@@ -1,0 +1,80 @@
+================================================================================
+REVIEWCASE STI DEMO - AUTOMATIC POST-TRANSITION ACTIONS
+================================================================================
+
+This demo shows how STI subtypes automatically execute their own specific 
+workflows when a record transitions to that type.
+
+--------------------------------------------------------------------------------
+SCENARIO 1: Approving a Review Case
+--------------------------------------------------------------------------------
+review.approve!(reviewer: "Tech Lead")
+
+AUTOMATIC ACTIONS TRIGGERED:
+🎉 Review case approved! Executing post-approval actions...
+📧 Sending approval notification
+   ✓ Email sent to requester
+   ✓ Slack notification sent to team channel
+   ✓ Calendar invite created for kickoff meeting
+📅 Scheduling implementation
+   ✓ Added to backlog
+   ✓ Assigned to development team
+   ✓ Story points estimated
+
+--------------------------------------------------------------------------------
+SCENARIO 2: Rejecting a Review Case
+--------------------------------------------------------------------------------
+review.reject!(reviewer: "CTO", reason: "Not feasible")
+
+AUTOMATIC ACTIONS TRIGGERED:
+❌ Review case rejected! Executing post-rejection actions...
+📧 Sending rejection notification
+   ✓ Email sent with detailed reason
+   ✓ Included appeal process documentation
+📊 Logging rejection metrics
+   ✓ Updated rejection rate statistics
+   ✓ Categorized rejection reason
+⚖️ Offering appeal process
+   ✓ Appeal window: 30 days
+   ✓ Contact information provided
+
+--------------------------------------------------------------------------------
+SCENARIO 3: Escalating a Review Case
+--------------------------------------------------------------------------------
+review.escalate!(reason: "Critical security issue")
+
+AUTOMATIC ACTIONS TRIGGERED:
+🚨 Review case escalated! Executing post-escalation actions...
+🚨 ESCALATION ALERT
+   ✓ Emergency notification sent to C-level
+   ✓ Management dashboard flagged
+🔴 Scheduling emergency review
+   ✓ Meeting scheduled within 24 hours
+   ✓ All stakeholders invited
+⏸️ Halting related work
+   ✓ Dependent tasks paused
+   ✓ Resources reallocated
+👤 Assigning escalation handler
+   ✓ Senior manager assigned
+   ✓ Expedited review process initiated
+
+================================================================================
+KEY BENEFITS OF STI APPROACH
+================================================================================
+
+✅ AUTOMATIC EXECUTION
+   Callbacks trigger automatically when type changes - no manual calls needed
+
+✅ SEPARATION OF CONCERNS
+   Each subtype has its own workflow - no conditional logic in base class
+
+✅ TYPE SAFETY
+   Can't accidentally call Escalated methods on an Approved record
+
+✅ MAINTAINABILITY
+   Adding new actions to one state doesn't affect others
+
+✅ TESTABILITY
+   Each subtype can be tested independently with its own specs
+
+================================================================================

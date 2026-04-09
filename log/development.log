@@ -1,0 +1,446 @@
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY) /*application='Ror'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Ror'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Ror'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2026-04-09 13:17:59.642718', '2026-04-09 13:17:59.642720') RETURNING "key" /*application='Ror'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Ror'*/[0m
+Migrating to CreateReviewCases (20260409131700)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "review_cases" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "type" varchar NOT NULL, "title" varchar NOT NULL, "description" text, "reviewed_by" varchar, "reviewed_at" datetime(6), "rejection_reason" text, "escalation_reason" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Ror'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_review_cases_on_type" ON "review_cases" ("type") /*application='Ror'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260409131700') RETURNING "version" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Ror'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Ror'*/[0m
+  [1m[36mReviewCase Load (0.1ms)[0m  [1m[34mSELECT "review_cases".* FROM "review_cases" /*application='Ror'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Ror'*/[0m
+  [1m[36mReviewCase Load (0.1ms)[0m  [1m[34mSELECT "review_cases".* FROM "review_cases" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase Create (0.4ms)[0m  [1m[32mINSERT INTO "review_cases" ("type", "title", "description", "reviewed_by", "reviewed_at", "rejection_reason", "escalation_reason", "created_at", "updated_at") VALUES ('ReviewCase', 'New Feature Request', 'User requested dark mode support', NULL, NULL, NULL, NULL, '2026-04-09 13:18:41.583035', '2026-04-09 13:18:41.583035') RETURNING "id" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:16:in 'ReviewCase#approve!'
+  [1m[36mReviewCase::Approved Update (0.3ms)[0m  [1m[33mUPDATE "review_cases" SET "type" = 'ReviewCase::Approved', "reviewed_by" = 'John Doe', "reviewed_at" = '2026-04-09 13:18:41.586673', "updated_at" = '2026-04-09 13:18:41.586747' WHERE "review_cases"."id" = 1 /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:16:in 'ReviewCase#approve!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:16:in 'ReviewCase#approve!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase Create (0.3ms)[0m  [1m[32mINSERT INTO "review_cases" ("type", "title", "description", "reviewed_by", "reviewed_at", "rejection_reason", "escalation_reason", "created_at", "updated_at") VALUES ('ReviewCase', 'API Change Proposal', 'Proposed breaking changes to v1 API', NULL, NULL, NULL, NULL, '2026-04-09 13:18:41.588441', '2026-04-09 13:18:41.588441') RETURNING "id" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:25:in 'ReviewCase#reject!'
+  [1m[36mReviewCase::Rejected Update (0.2ms)[0m  [1m[33mUPDATE "review_cases" SET "type" = 'ReviewCase::Rejected', "reviewed_by" = 'Jane Smith', "reviewed_at" = '2026-04-09 13:18:41.590432', "rejection_reason" = 'Breaking changes not allowed in v1', "updated_at" = '2026-04-09 13:18:41.590494' WHERE "review_cases"."id" = 2 /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:25:in 'ReviewCase#reject!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:25:in 'ReviewCase#reject!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase Create (0.3ms)[0m  [1m[32mINSERT INTO "review_cases" ("type", "title", "description", "reviewed_by", "reviewed_at", "rejection_reason", "escalation_reason", "created_at", "updated_at") VALUES ('ReviewCase', 'Security Vulnerability Report', 'Critical security issue found in authentication', NULL, NULL, NULL, NULL, '2026-04-09 13:18:41.591247', '2026-04-09 13:18:41.591247') RETURNING "id" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:32:in 'ReviewCase#escalate!'
+  [1m[36mReviewCase::Escalated Update (0.3ms)[0m  [1m[33mUPDATE "review_cases" SET "type" = 'ReviewCase::Escalated', "escalation_reason" = 'Requires immediate security team review', "updated_at" = '2026-04-09 13:18:41.593415' WHERE "review_cases"."id" = 3 /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:32:in 'ReviewCase#escalate!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:32:in 'ReviewCase#escalate!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase Create (0.4ms)[0m  [1m[32mINSERT INTO "review_cases" ("type", "title", "description", "reviewed_by", "reviewed_at", "rejection_reason", "escalation_reason", "created_at", "updated_at") VALUES ('ReviewCase', 'Performance Optimization', 'Improve query performance', NULL, NULL, NULL, NULL, '2026-04-09 13:18:41.594183', '2026-04-09 13:18:41.594183') RETURNING "id" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:32:in 'ReviewCase#escalate!'
+  [1m[36mReviewCase::Escalated Update (0.2ms)[0m  [1m[33mUPDATE "review_cases" SET "type" = 'ReviewCase::Escalated', "escalation_reason" = 'Needs architecture review', "updated_at" = '2026-04-09 13:18:41.595203' WHERE "review_cases"."id" = 4 /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:32:in 'ReviewCase#escalate!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:32:in 'ReviewCase#escalate!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:16:in 'ReviewCase#approve!'
+  [1m[36mReviewCase::Approved Update (0.2ms)[0m  [1m[33mUPDATE "review_cases" SET "type" = 'ReviewCase::Approved', "reviewed_by" = 'Tech Lead', "reviewed_at" = '2026-04-09 13:18:41.595846', "updated_at" = '2026-04-09 13:18:41.595888' WHERE "review_cases"."id" = 4 /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:16:in 'ReviewCase#approve!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:16:in 'ReviewCase#approve!'
+  [1m[36mReviewCase Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "review_cases" /*application='Ror'*/[0m
+  [1m[36mReviewCase::Approved Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "review_cases" WHERE "review_cases"."type" = 'ReviewCase::Approved' /*application='Ror'*/[0m
+  [1m[36mReviewCase::Rejected Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "review_cases" WHERE "review_cases"."type" = 'ReviewCase::Rejected' /*application='Ror'*/[0m
+  [1m[36mReviewCase::Escalated Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "review_cases" WHERE "review_cases"."type" = 'ReviewCase::Escalated' /*application='Ror'*/[0m
+  [1m[36mReviewCase Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "review_cases" WHERE "review_cases"."type" = 'ReviewCase' /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase Create (0.8ms)[0m  [1m[32mINSERT INTO "review_cases" ("type", "title", "description", "reviewed_by", "reviewed_at", "rejection_reason", "escalation_reason", "created_at", "updated_at") VALUES ('ReviewCase', 'Console Test', 'Testing from CLI', NULL, NULL, NULL, NULL, '2026-04-09 13:19:43.532669', '2026-04-09 13:19:43.532669') RETURNING "id" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:16:in 'ReviewCase#approve!'
+  [1m[36mReviewCase::Approved Update (0.3ms)[0m  [1m[33mUPDATE "review_cases" SET "type" = 'ReviewCase::Approved', "reviewed_by" = 'CLI User', "reviewed_at" = '2026-04-09 13:19:43.536356', "updated_at" = '2026-04-09 13:19:43.536449' WHERE "review_cases"."id" = 5 /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:16:in 'ReviewCase#approve!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:16:in 'ReviewCase#approve!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase Create (0.3ms)[0m  [1m[32mINSERT INTO "review_cases" ("type", "title", "description", "reviewed_by", "reviewed_at", "rejection_reason", "escalation_reason", "created_at", "updated_at") VALUES ('ReviewCase', 'Another Test', NULL, NULL, NULL, NULL, NULL, '2026-04-09 13:19:43.539708', '2026-04-09 13:19:43.539708') RETURNING "id" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:25:in 'ReviewCase#reject!'
+  [1m[36mReviewCase::Rejected Update (0.3ms)[0m  [1m[33mUPDATE "review_cases" SET "type" = 'ReviewCase::Rejected', "reviewed_by" = 'CLI User', "reviewed_at" = '2026-04-09 13:19:43.541744', "rejection_reason" = 'Testing rejection', "updated_at" = '2026-04-09 13:19:43.541832' WHERE "review_cases"."id" = 6 /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:25:in 'ReviewCase#reject!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:25:in 'ReviewCase#reject!'
+  [1m[36mReviewCase::Approved Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "review_cases" WHERE "review_cases"."type" = 'ReviewCase::Approved' /*application='Ror'*/[0m
+  [1m[36mReviewCase::Rejected Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "review_cases" WHERE "review_cases"."type" = 'ReviewCase::Rejected' /*application='Ror'*/[0m
+  [1m[36mReviewCase Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "review_cases" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase Create (0.8ms)[0m  [1m[32mINSERT INTO "review_cases" ("type", "title", "description", "reviewed_by", "reviewed_at", "rejection_reason", "escalation_reason", "created_at", "updated_at") VALUES ('ReviewCase', 'New Case', NULL, NULL, NULL, NULL, NULL, '2026-04-09 13:23:31.548572', '2026-04-09 13:23:31.548572') RETURNING "id" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:31:in 'ReviewCase#approve!'
+  [1m[36mReviewCase::Approved Update (0.4ms)[0m  [1m[33mUPDATE "review_cases" SET "type" = 'ReviewCase::Approved', "reviewed_by" = 'Alice', "reviewed_at" = '2026-04-09 13:23:31.551000', "updated_at" = '2026-04-09 13:23:31.551065' WHERE "review_cases"."id" = 7 /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:31:in 'ReviewCase#approve!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:31:in 'ReviewCase#approve!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase Create (0.6ms)[0m  [1m[32mINSERT INTO "review_cases" ("type", "title", "description", "reviewed_by", "reviewed_at", "rejection_reason", "escalation_reason", "created_at", "updated_at") VALUES ('ReviewCase', 'Feature Request', 'Add search functionality', NULL, NULL, NULL, NULL, '2026-04-09 13:23:51.321236', '2026-04-09 13:23:51.321236') RETURNING "id" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:31:in 'ReviewCase#approve!'
+  [1m[36mReviewCase::Approved Update (0.4ms)[0m  [1m[33mUPDATE "review_cases" SET "type" = 'ReviewCase::Approved', "reviewed_by" = 'Tech Lead', "reviewed_at" = '2026-04-09 13:23:51.324369', "updated_at" = '2026-04-09 13:23:51.324509' WHERE "review_cases"."id" = 8 /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:31:in 'ReviewCase#approve!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:31:in 'ReviewCase#approve!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase Create (0.3ms)[0m  [1m[32mINSERT INTO "review_cases" ("type", "title", "description", "reviewed_by", "reviewed_at", "rejection_reason", "escalation_reason", "created_at", "updated_at") VALUES ('ReviewCase', 'Bug Report', NULL, NULL, NULL, NULL, NULL, '2026-04-09 13:23:51.328351', '2026-04-09 13:23:51.328351') RETURNING "id" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:40:in 'ReviewCase#reject!'
+  [1m[36mReviewCase::Rejected Update (0.3ms)[0m  [1m[33mUPDATE "review_cases" SET "type" = 'ReviewCase::Rejected', "reviewed_by" = 'QA Team', "reviewed_at" = '2026-04-09 13:23:51.329925', "rejection_reason" = 'Cannot reproduce', "updated_at" = '2026-04-09 13:23:51.329993' WHERE "review_cases"."id" = 9 /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:40:in 'ReviewCase#reject!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:40:in 'ReviewCase#reject!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase Create (0.3ms)[0m  [1m[32mINSERT INTO "review_cases" ("type", "title", "description", "reviewed_by", "reviewed_at", "rejection_reason", "escalation_reason", "created_at", "updated_at") VALUES ('ReviewCase', 'Security Issue', NULL, NULL, NULL, NULL, NULL, '2026-04-09 13:23:51.330751', '2026-04-09 13:23:51.330751') RETURNING "id" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:47:in 'ReviewCase#escalate!'
+  [1m[36mReviewCase::Escalated Update (0.3ms)[0m  [1m[33mUPDATE "review_cases" SET "type" = 'ReviewCase::Escalated', "escalation_reason" = 'Critical security vulnerability', "updated_at" = '2026-04-09 13:23:51.333289' WHERE "review_cases"."id" = 10 /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:47:in 'ReviewCase#escalate!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:47:in 'ReviewCase#escalate!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase Create (0.9ms)[0m  [1m[32mINSERT INTO "review_cases" ("type", "title", "description", "reviewed_by", "reviewed_at", "rejection_reason", "escalation_reason", "created_at", "updated_at") VALUES ('ReviewCase', 'Add User Authentication', NULL, 'Pending', '2026-04-09 13:28:36.905980', NULL, NULL, '2026-04-09 13:28:36.915297', '2026-04-09 13:28:36.915297') RETURNING "id" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:31:in 'ReviewCase#approve!'
+  [1m[36mReviewCase::Approved Update (0.5ms)[0m  [1m[33mUPDATE "review_cases" SET "type" = 'ReviewCase::Approved', "reviewed_by" = 'Tech Lead', "reviewed_at" = '2026-04-09 13:28:36.919611', "updated_at" = '2026-04-09 13:28:36.919682' WHERE "review_cases"."id" = 11 /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:31:in 'ReviewCase#approve!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:31:in 'ReviewCase#approve!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase Create (0.3ms)[0m  [1m[32mINSERT INTO "review_cases" ("type", "title", "description", "reviewed_by", "reviewed_at", "rejection_reason", "escalation_reason", "created_at", "updated_at") VALUES ('ReviewCase', 'Change Database to NoSQL', NULL, 'Pending', '2026-04-09 13:28:36.923217', NULL, NULL, '2026-04-09 13:28:36.923291', '2026-04-09 13:28:36.923291') RETURNING "id" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:40:in 'ReviewCase#reject!'
+  [1m[36mReviewCase::Rejected Update (0.3ms)[0m  [1m[33mUPDATE "review_cases" SET "type" = 'ReviewCase::Rejected', "reviewed_by" = 'CTO', "reviewed_at" = '2026-04-09 13:28:36.925138', "rejection_reason" = 'Too risky for current timeline', "updated_at" = '2026-04-09 13:28:36.925222' WHERE "review_cases"."id" = 12 /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:40:in 'ReviewCase#reject!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:40:in 'ReviewCase#reject!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase Create (0.4ms)[0m  [1m[32mINSERT INTO "review_cases" ("type", "title", "description", "reviewed_by", "reviewed_at", "rejection_reason", "escalation_reason", "created_at", "updated_at") VALUES ('ReviewCase', 'Critical Security Patch', NULL, 'Pending', '2026-04-09 13:28:36.926012', NULL, NULL, '2026-04-09 13:28:36.926086', '2026-04-09 13:28:36.926086') RETURNING "id" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:47:in 'ReviewCase#escalate!'
+  [1m[36mReviewCase::Escalated Update (0.3ms)[0m  [1m[33mUPDATE "review_cases" SET "type" = 'ReviewCase::Escalated', "escalation_reason" = 'Zero-day vulnerability discovered', "updated_at" = '2026-04-09 13:28:36.928591' WHERE "review_cases"."id" = 13 /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:47:in 'ReviewCase#escalate!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:47:in 'ReviewCase#escalate!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase Create (0.7ms)[0m  [1m[32mINSERT INTO "review_cases" ("type", "title", "description", "reviewed_by", "reviewed_at", "rejection_reason", "escalation_reason", "created_at", "updated_at") VALUES ('ReviewCase', 'Add Payment Gateway', NULL, 'TBD', '2026-04-09 13:30:36.567820', NULL, NULL, '2026-04-09 13:30:36.579411', '2026-04-09 13:30:36.579411') RETURNING "id" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:31:in 'ReviewCase#approve!'
+  [1m[36mReviewCase::Approved Update (0.3ms)[0m  [1m[33mUPDATE "review_cases" SET "type" = 'ReviewCase::Approved', "reviewed_by" = 'Product Manager', "reviewed_at" = '2026-04-09 13:30:36.582682', "updated_at" = '2026-04-09 13:30:36.582753' WHERE "review_cases"."id" = 14 /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:31:in 'ReviewCase#approve!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:31:in 'ReviewCase#approve!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase Create (0.3ms)[0m  [1m[32mINSERT INTO "review_cases" ("type", "title", "description", "reviewed_by", "reviewed_at", "rejection_reason", "escalation_reason", "created_at", "updated_at") VALUES ('ReviewCase', 'Migrate to Microservices', NULL, 'TBD', '2026-04-09 13:30:36.585857', NULL, NULL, '2026-04-09 13:30:36.585926', '2026-04-09 13:30:36.585926') RETURNING "id" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:40:in 'ReviewCase#reject!'
+  [1m[36mReviewCase::Rejected Update (0.3ms)[0m  [1m[33mUPDATE "review_cases" SET "type" = 'ReviewCase::Rejected', "reviewed_by" = 'Tech Lead', "reviewed_at" = '2026-04-09 13:30:36.587632', "rejection_reason" = 'Too complex for current sprint', "updated_at" = '2026-04-09 13:30:36.587701' WHERE "review_cases"."id" = 15 /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:40:in 'ReviewCase#reject!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:40:in 'ReviewCase#reject!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase Create (0.3ms)[0m  [1m[32mINSERT INTO "review_cases" ("type", "title", "description", "reviewed_by", "reviewed_at", "rejection_reason", "escalation_reason", "created_at", "updated_at") VALUES ('ReviewCase', 'Critical Data Breach', NULL, 'TBD', '2026-04-09 13:30:36.588428', NULL, NULL, '2026-04-09 13:30:36.588486', '2026-04-09 13:30:36.588486') RETURNING "id" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:47:in 'ReviewCase#escalate!'
+  [1m[36mReviewCase::Escalated Update (0.2ms)[0m  [1m[33mUPDATE "review_cases" SET "type" = 'ReviewCase::Escalated', "escalation_reason" = 'Customer data potentially compromised', "updated_at" = '2026-04-09 13:30:36.590181' WHERE "review_cases"."id" = 16 /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:47:in 'ReviewCase#escalate!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:47:in 'ReviewCase#escalate!'
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Ror'*/[0m
+  [1m[36mReviewCase Load (0.2ms)[0m  [1m[34mSELECT "review_cases".* FROM "review_cases" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase::Approved Destroy (0.5ms)[0m  [1m[31mDELETE FROM "review_cases" WHERE "review_cases"."id" = 1 /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase::Rejected Destroy (0.3ms)[0m  [1m[31mDELETE FROM "review_cases" WHERE "review_cases"."id" = 2 /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase::Escalated Destroy (0.3ms)[0m  [1m[31mDELETE FROM "review_cases" WHERE "review_cases"."id" = 3 /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase::Approved Destroy (0.3ms)[0m  [1m[31mDELETE FROM "review_cases" WHERE "review_cases"."id" = 4 /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase::Approved Destroy (0.3ms)[0m  [1m[31mDELETE FROM "review_cases" WHERE "review_cases"."id" = 5 /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase::Rejected Destroy (0.3ms)[0m  [1m[31mDELETE FROM "review_cases" WHERE "review_cases"."id" = 6 /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase::Approved Destroy (0.3ms)[0m  [1m[31mDELETE FROM "review_cases" WHERE "review_cases"."id" = 7 /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase::Approved Destroy (0.3ms)[0m  [1m[31mDELETE FROM "review_cases" WHERE "review_cases"."id" = 8 /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase::Rejected Destroy (0.3ms)[0m  [1m[31mDELETE FROM "review_cases" WHERE "review_cases"."id" = 9 /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase::Escalated Destroy (0.3ms)[0m  [1m[31mDELETE FROM "review_cases" WHERE "review_cases"."id" = 10 /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase::Approved Destroy (0.3ms)[0m  [1m[31mDELETE FROM "review_cases" WHERE "review_cases"."id" = 11 /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase::Rejected Destroy (0.3ms)[0m  [1m[31mDELETE FROM "review_cases" WHERE "review_cases"."id" = 12 /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase::Escalated Destroy (0.3ms)[0m  [1m[31mDELETE FROM "review_cases" WHERE "review_cases"."id" = 13 /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase::Approved Destroy (0.3ms)[0m  [1m[31mDELETE FROM "review_cases" WHERE "review_cases"."id" = 14 /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase::Rejected Destroy (0.3ms)[0m  [1m[31mDELETE FROM "review_cases" WHERE "review_cases"."id" = 15 /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase::Escalated Destroy (0.3ms)[0m  [1m[31mDELETE FROM "review_cases" WHERE "review_cases"."id" = 16 /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase Create (0.4ms)[0m  [1m[32mINSERT INTO "review_cases" ("type", "title", "description", "reviewed_by", "reviewed_at", "rejection_reason", "escalation_reason", "created_at", "updated_at") VALUES ('ReviewCase', 'New Feature Request', 'User requested dark mode support', 'TBD', '2026-04-09 13:31:49.707934', NULL, NULL, '2026-04-09 13:31:49.708199', '2026-04-09 13:31:49.708199') RETURNING "id" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:31:in 'ReviewCase#approve!'
+  [1m[36mReviewCase::Approved Update (0.2ms)[0m  [1m[33mUPDATE "review_cases" SET "type" = 'ReviewCase::Approved', "reviewed_by" = 'John Doe', "reviewed_at" = '2026-04-09 13:31:49.709404', "updated_at" = '2026-04-09 13:31:49.709468' WHERE "review_cases"."id" = 17 /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:31:in 'ReviewCase#approve!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:31:in 'ReviewCase#approve!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase Create (0.4ms)[0m  [1m[32mINSERT INTO "review_cases" ("type", "title", "description", "reviewed_by", "reviewed_at", "rejection_reason", "escalation_reason", "created_at", "updated_at") VALUES ('ReviewCase', 'API Change Proposal', 'Proposed breaking changes to v1 API', 'TBD', '2026-04-09 13:31:49.710416', NULL, NULL, '2026-04-09 13:31:49.710481', '2026-04-09 13:31:49.710481') RETURNING "id" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:40:in 'ReviewCase#reject!'
+  [1m[36mReviewCase::Rejected Update (0.2ms)[0m  [1m[33mUPDATE "review_cases" SET "type" = 'ReviewCase::Rejected', "reviewed_by" = 'Jane Smith', "reviewed_at" = '2026-04-09 13:31:49.711448', "rejection_reason" = 'Breaking changes not allowed in v1', "updated_at" = '2026-04-09 13:31:49.711504' WHERE "review_cases"."id" = 18 /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:40:in 'ReviewCase#reject!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:40:in 'ReviewCase#reject!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase Create (0.3ms)[0m  [1m[32mINSERT INTO "review_cases" ("type", "title", "description", "reviewed_by", "reviewed_at", "rejection_reason", "escalation_reason", "created_at", "updated_at") VALUES ('ReviewCase', 'Security Vulnerability Report', 'Critical security issue found in authentication', 'TBD', '2026-04-09 13:31:49.712163', NULL, NULL, '2026-04-09 13:31:49.712214', '2026-04-09 13:31:49.712214') RETURNING "id" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:47:in 'ReviewCase#escalate!'
+  [1m[36mReviewCase::Escalated Update (0.2ms)[0m  [1m[33mUPDATE "review_cases" SET "type" = 'ReviewCase::Escalated', "escalation_reason" = 'Requires immediate security team review', "updated_at" = '2026-04-09 13:31:49.713145' WHERE "review_cases"."id" = 19 /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:47:in 'ReviewCase#escalate!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:47:in 'ReviewCase#escalate!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase Create (0.3ms)[0m  [1m[32mINSERT INTO "review_cases" ("type", "title", "description", "reviewed_by", "reviewed_at", "rejection_reason", "escalation_reason", "created_at", "updated_at") VALUES ('ReviewCase', 'Performance Optimization', 'Improve query performance', 'TBD', '2026-04-09 13:31:49.713768', NULL, NULL, '2026-04-09 13:31:49.713818', '2026-04-09 13:31:49.713818') RETURNING "id" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:47:in 'ReviewCase#escalate!'
+  [1m[36mReviewCase::Escalated Update (0.3ms)[0m  [1m[33mUPDATE "review_cases" SET "type" = 'ReviewCase::Escalated', "escalation_reason" = 'Needs architecture review', "updated_at" = '2026-04-09 13:31:49.714755' WHERE "review_cases"."id" = 20 /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:47:in 'ReviewCase#escalate!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:47:in 'ReviewCase#escalate!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:31:in 'ReviewCase#approve!'
+  [1m[36mReviewCase::Approved Update (0.2ms)[0m  [1m[33mUPDATE "review_cases" SET "type" = 'ReviewCase::Approved', "reviewed_by" = 'Tech Lead', "reviewed_at" = '2026-04-09 13:31:49.715428', "updated_at" = '2026-04-09 13:31:49.715467' WHERE "review_cases"."id" = 20 /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:31:in 'ReviewCase#approve!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:31:in 'ReviewCase#approve!'
+  [1m[36mReviewCase Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "review_cases" /*application='Ror'*/[0m
+  [1m[36mReviewCase::Approved Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "review_cases" WHERE "review_cases"."type" = 'ReviewCase::Approved' /*application='Ror'*/[0m
+  [1m[36mReviewCase::Rejected Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "review_cases" WHERE "review_cases"."type" = 'ReviewCase::Rejected' /*application='Ror'*/[0m
+  [1m[36mReviewCase::Escalated Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "review_cases" WHERE "review_cases"."type" = 'ReviewCase::Escalated' /*application='Ror'*/[0m
+  [1m[36mReviewCase Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "review_cases" WHERE "review_cases"."type" = 'ReviewCase' /*application='Ror'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Ror'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Ror'*/[0m
+Migrating to CreateReviewCasesWithStatus (20260409133601)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "review_cases_with_status" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar NOT NULL, "description" text, "status" varchar DEFAULT 'pending' NOT NULL, "reviewed_by" varchar, "reviewed_at" datetime(6), "rejection_reason" text, "escalation_reason" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Ror'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_review_cases_with_status_on_status" ON "review_cases_with_status" ("status") /*application='Ror'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260409133601') RETURNING "version" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCaseWithStatus Create (1.0ms)[0m  [1m[32mINSERT INTO "review_cases_with_status" ("title", "description", "status", "reviewed_by", "reviewed_at", "rejection_reason", "escalation_reason", "created_at", "updated_at") VALUES ('Add Payment Gateway', NULL, '0', NULL, NULL, NULL, NULL, '2026-04-09 13:40:32.448027', '2026-04-09 13:40:32.448027') RETURNING "id" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCaseWithStatus Create (0.8ms)[0m  [1m[32mINSERT INTO "review_cases_with_status" ("title", "description", "status", "reviewed_by", "reviewed_at", "rejection_reason", "escalation_reason", "created_at", "updated_at") VALUES ('Add Payment Gateway', NULL, '0', NULL, NULL, NULL, NULL, '2026-04-09 13:40:52.422900', '2026-04-09 13:40:52.422900') RETURNING "id" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case_with_status.rb:27:in 'ReviewCaseWithStatus#approve!'
+  [1m[36mReviewCaseWithStatus Update (0.3ms)[0m  [1m[33mUPDATE "review_cases_with_status" SET "status" = '1', "reviewed_by" = 'Product Manager', "reviewed_at" = '2026-04-09 13:40:52.425062', "updated_at" = '2026-04-09 13:40:52.425136' WHERE "review_cases_with_status"."id" = 2 /*application='Ror'*/[0m
+  ↳ app/models/review_case_with_status.rb:27:in 'ReviewCaseWithStatus#approve!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case_with_status.rb:27:in 'ReviewCaseWithStatus#approve!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCaseWithStatus Create (0.3ms)[0m  [1m[32mINSERT INTO "review_cases_with_status" ("title", "description", "status", "reviewed_by", "reviewed_at", "rejection_reason", "escalation_reason", "created_at", "updated_at") VALUES ('Migrate to Microservices', NULL, '0', NULL, NULL, NULL, NULL, '2026-04-09 13:40:52.428750', '2026-04-09 13:40:52.428750') RETURNING "id" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case_with_status.rb:35:in 'ReviewCaseWithStatus#reject!'
+  [1m[36mReviewCaseWithStatus Update (0.3ms)[0m  [1m[33mUPDATE "review_cases_with_status" SET "status" = '2', "reviewed_by" = 'Tech Lead', "reviewed_at" = '2026-04-09 13:40:52.429557', "rejection_reason" = 'Too complex for current sprint', "updated_at" = '2026-04-09 13:40:52.429609' WHERE "review_cases_with_status"."id" = 3 /*application='Ror'*/[0m
+  ↳ app/models/review_case_with_status.rb:35:in 'ReviewCaseWithStatus#reject!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case_with_status.rb:35:in 'ReviewCaseWithStatus#reject!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCaseWithStatus Create (0.4ms)[0m  [1m[32mINSERT INTO "review_cases_with_status" ("title", "description", "status", "reviewed_by", "reviewed_at", "rejection_reason", "escalation_reason", "created_at", "updated_at") VALUES ('Critical Data Breach', NULL, '0', NULL, NULL, NULL, NULL, '2026-04-09 13:40:52.430357', '2026-04-09 13:40:52.430357') RETURNING "id" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case_with_status.rb:41:in 'ReviewCaseWithStatus#escalate!'
+  [1m[36mReviewCaseWithStatus Update (0.3ms)[0m  [1m[33mUPDATE "review_cases_with_status" SET "status" = '3', "escalation_reason" = 'Customer data potentially compromised', "updated_at" = '2026-04-09 13:40:52.431357' WHERE "review_cases_with_status"."id" = 4 /*application='Ror'*/[0m
+  ↳ app/models/review_case_with_status.rb:41:in 'ReviewCaseWithStatus#escalate!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case_with_status.rb:41:in 'ReviewCaseWithStatus#escalate!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCaseWithStatus Create (0.6ms)[0m  [1m[32mINSERT INTO "review_cases_with_status" ("title", "description", "status", "reviewed_by", "reviewed_at", "rejection_reason", "escalation_reason", "created_at", "updated_at") VALUES ('Test', NULL, '0', NULL, NULL, NULL, NULL, '2026-04-09 13:41:26.504885', '2026-04-09 13:41:26.504885') RETURNING "id" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case_with_status.rb:27:in 'ReviewCaseWithStatus#approve!'
+  [1m[36mReviewCaseWithStatus Update (0.3ms)[0m  [1m[33mUPDATE "review_cases_with_status" SET "status" = '1', "reviewed_by" = 'Alice', "reviewed_at" = '2026-04-09 13:41:26.506805', "updated_at" = '2026-04-09 13:41:26.506859' WHERE "review_cases_with_status"."id" = 5 /*application='Ror'*/[0m
+  ↳ app/models/review_case_with_status.rb:27:in 'ReviewCaseWithStatus#approve!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case_with_status.rb:27:in 'ReviewCaseWithStatus#approve!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCaseWithStatus Create (0.7ms)[0m  [1m[32mINSERT INTO "review_cases_with_status" ("title", "description", "status", "reviewed_by", "reviewed_at", "rejection_reason", "escalation_reason", "created_at", "updated_at") VALUES ('Test', NULL, 'pending', NULL, NULL, NULL, NULL, '2026-04-09 13:41:38.585702', '2026-04-09 13:41:38.585702') RETURNING "id" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case_with_status.rb:27:in 'ReviewCaseWithStatus#approve!'
+  [1m[36mReviewCaseWithStatus Update (0.3ms)[0m  [1m[33mUPDATE "review_cases_with_status" SET "status" = 'approved', "reviewed_by" = 'Alice', "reviewed_at" = '2026-04-09 13:41:38.587700', "updated_at" = '2026-04-09 13:41:38.587763' WHERE "review_cases_with_status"."id" = 6 /*application='Ror'*/[0m
+  ↳ app/models/review_case_with_status.rb:27:in 'ReviewCaseWithStatus#approve!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case_with_status.rb:27:in 'ReviewCaseWithStatus#approve!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCaseWithStatus Create (0.7ms)[0m  [1m[32mINSERT INTO "review_cases_with_status" ("title", "description", "status", "reviewed_by", "reviewed_at", "rejection_reason", "escalation_reason", "created_at", "updated_at") VALUES ('Add Payment Gateway', NULL, 'pending', NULL, NULL, NULL, NULL, '2026-04-09 13:42:16.840935', '2026-04-09 13:42:16.840935') RETURNING "id" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case_with_status.rb:27:in 'ReviewCaseWithStatus#approve!'
+  [1m[36mReviewCaseWithStatus Update (0.4ms)[0m  [1m[33mUPDATE "review_cases_with_status" SET "status" = 'approved', "reviewed_by" = 'Product Manager', "reviewed_at" = '2026-04-09 13:42:16.843171', "updated_at" = '2026-04-09 13:42:16.843261' WHERE "review_cases_with_status"."id" = 7 /*application='Ror'*/[0m
+  ↳ app/models/review_case_with_status.rb:27:in 'ReviewCaseWithStatus#approve!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case_with_status.rb:27:in 'ReviewCaseWithStatus#approve!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCaseWithStatus Create (0.3ms)[0m  [1m[32mINSERT INTO "review_cases_with_status" ("title", "description", "status", "reviewed_by", "reviewed_at", "rejection_reason", "escalation_reason", "created_at", "updated_at") VALUES ('Migrate to Microservices', NULL, 'pending', NULL, NULL, NULL, NULL, '2026-04-09 13:42:16.845965', '2026-04-09 13:42:16.845965') RETURNING "id" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case_with_status.rb:35:in 'ReviewCaseWithStatus#reject!'
+  [1m[36mReviewCaseWithStatus Update (0.3ms)[0m  [1m[33mUPDATE "review_cases_with_status" SET "status" = 'rejected', "reviewed_by" = 'Tech Lead', "reviewed_at" = '2026-04-09 13:42:16.846762', "rejection_reason" = 'Too complex for current sprint', "updated_at" = '2026-04-09 13:42:16.846814' WHERE "review_cases_with_status"."id" = 8 /*application='Ror'*/[0m
+  ↳ app/models/review_case_with_status.rb:35:in 'ReviewCaseWithStatus#reject!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case_with_status.rb:35:in 'ReviewCaseWithStatus#reject!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCaseWithStatus Create (0.3ms)[0m  [1m[32mINSERT INTO "review_cases_with_status" ("title", "description", "status", "reviewed_by", "reviewed_at", "rejection_reason", "escalation_reason", "created_at", "updated_at") VALUES ('Critical Data Breach', NULL, 'pending', NULL, NULL, NULL, NULL, '2026-04-09 13:42:16.847543', '2026-04-09 13:42:16.847543') RETURNING "id" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case_with_status.rb:41:in 'ReviewCaseWithStatus#escalate!'
+  [1m[36mReviewCaseWithStatus Update (0.3ms)[0m  [1m[33mUPDATE "review_cases_with_status" SET "status" = 'escalated', "escalation_reason" = 'Customer data potentially compromised', "updated_at" = '2026-04-09 13:42:16.848387' WHERE "review_cases_with_status"."id" = 9 /*application='Ror'*/[0m
+  ↳ app/models/review_case_with_status.rb:41:in 'ReviewCaseWithStatus#escalate!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case_with_status.rb:41:in 'ReviewCaseWithStatus#escalate!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase Create (0.7ms)[0m  [1m[32mINSERT INTO "review_cases" ("type", "title", "description", "reviewed_by", "reviewed_at", "rejection_reason", "escalation_reason", "created_at", "updated_at") VALUES ('ReviewCase', 'Implement New Feature', NULL, 'TBD', '2026-04-09 13:43:25.301779', NULL, NULL, '2026-04-09 13:43:25.312878', '2026-04-09 13:43:25.312878') RETURNING "id" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:31:in 'ReviewCase#approve!'
+  [1m[36mReviewCase::Approved Update (0.3ms)[0m  [1m[33mUPDATE "review_cases" SET "type" = 'ReviewCase::Approved', "reviewed_by" = 'Alice', "reviewed_at" = '2026-04-09 13:43:25.316184', "updated_at" = '2026-04-09 13:43:25.316258' WHERE "review_cases"."id" = 21 /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:31:in 'ReviewCase#approve!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case.rb:31:in 'ReviewCase#approve!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCaseWithStatus Create (0.4ms)[0m  [1m[32mINSERT INTO "review_cases_with_status" ("title", "description", "status", "reviewed_by", "reviewed_at", "rejection_reason", "escalation_reason", "created_at", "updated_at") VALUES ('Implement New Feature', NULL, 'pending', NULL, NULL, NULL, NULL, '2026-04-09 13:43:25.321297', '2026-04-09 13:43:25.321297') RETURNING "id" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case_with_status.rb:27:in 'ReviewCaseWithStatus#approve!'
+  [1m[36mReviewCaseWithStatus Update (0.2ms)[0m  [1m[33mUPDATE "review_cases_with_status" SET "status" = 'approved', "reviewed_by" = 'Alice', "reviewed_at" = '2026-04-09 13:43:25.322289', "updated_at" = '2026-04-09 13:43:25.322342' WHERE "review_cases_with_status"."id" = 10 /*application='Ror'*/[0m
+  ↳ app/models/review_case_with_status.rb:27:in 'ReviewCaseWithStatus#approve!'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  ↳ app/models/review_case_with_status.rb:27:in 'ReviewCaseWithStatus#approve!'
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Ror'*/[0m
+  [1m[36mReviewCase Load (0.2ms)[0m  [1m[34mSELECT "review_cases".* FROM "review_cases" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase::Approved Destroy (0.5ms)[0m  [1m[31mDELETE FROM "review_cases" WHERE "review_cases"."id" = 17 /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase::Rejected Destroy (0.3ms)[0m  [1m[31mDELETE FROM "review_cases" WHERE "review_cases"."id" = 18 /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase::Escalated Destroy (0.3ms)[0m  [1m[31mDELETE FROM "review_cases" WHERE "review_cases"."id" = 19 /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase::Approved Destroy (0.3ms)[0m  [1m[31mDELETE FROM "review_cases" WHERE "review_cases"."id" = 20 /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase::Approved Destroy (0.3ms)[0m  [1m[31mDELETE FROM "review_cases" WHERE "review_cases"."id" = 21 /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase Create (0.4ms)[0m  [1m[32mINSERT INTO "review_cases" ("type", "title", "description", "reviewed_by", "reviewed_at", "rejection_reason", "escalation_reason", "created_at", "updated_at") VALUES ('ReviewCase', 'New Feature Request', 'User requested dark mode support', 'TBD', '2026-04-09 13:50:25.139652', NULL, NULL, '2026-04-09 13:50:25.139912', '2026-04-09 13:50:25.139912') RETURNING "id" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase::Approved Update (0.3ms)[0m  [1m[33mUPDATE "review_cases" SET "type" = 'ReviewCase::Approved', "reviewed_by" = 'John Doe', "reviewed_at" = '2026-04-09 13:50:25.141028', "updated_at" = '2026-04-09 13:50:25.141097' WHERE "review_cases"."id" = 22 /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase Create (0.3ms)[0m  [1m[32mINSERT INTO "review_cases" ("type", "title", "description", "reviewed_by", "reviewed_at", "rejection_reason", "escalation_reason", "created_at", "updated_at") VALUES ('ReviewCase', 'API Change Proposal', 'Proposed breaking changes to v1 API', 'TBD', '2026-04-09 13:50:25.142275', NULL, NULL, '2026-04-09 13:50:25.142331', '2026-04-09 13:50:25.142331') RETURNING "id" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase::Rejected Update (0.3ms)[0m  [1m[33mUPDATE "review_cases" SET "type" = 'ReviewCase::Rejected', "reviewed_by" = 'Jane Smith', "reviewed_at" = '2026-04-09 13:50:25.143217', "rejection_reason" = 'Breaking changes not allowed in v1', "updated_at" = '2026-04-09 13:50:25.143270' WHERE "review_cases"."id" = 23 /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase Create (0.3ms)[0m  [1m[32mINSERT INTO "review_cases" ("type", "title", "description", "reviewed_by", "reviewed_at", "rejection_reason", "escalation_reason", "created_at", "updated_at") VALUES ('ReviewCase', 'Security Vulnerability Report', 'Critical security issue found in authentication', 'TBD', '2026-04-09 13:50:25.144106', NULL, NULL, '2026-04-09 13:50:25.144156', '2026-04-09 13:50:25.144156') RETURNING "id" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase::Escalated Update (0.3ms)[0m  [1m[33mUPDATE "review_cases" SET "type" = 'ReviewCase::Escalated', "escalation_reason" = 'Requires immediate security team review', "updated_at" = '2026-04-09 13:50:25.145086' WHERE "review_cases"."id" = 24 /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase Create (0.3ms)[0m  [1m[32mINSERT INTO "review_cases" ("type", "title", "description", "reviewed_by", "reviewed_at", "rejection_reason", "escalation_reason", "created_at", "updated_at") VALUES ('ReviewCase', 'Performance Optimization', 'Improve query performance', 'TBD', '2026-04-09 13:50:25.146036', NULL, NULL, '2026-04-09 13:50:25.146085', '2026-04-09 13:50:25.146085') RETURNING "id" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase::Escalated Update (0.3ms)[0m  [1m[33mUPDATE "review_cases" SET "type" = 'ReviewCase::Escalated', "escalation_reason" = 'Needs architecture review', "updated_at" = '2026-04-09 13:50:25.146958' WHERE "review_cases"."id" = 25 /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase::Approved Update (0.3ms)[0m  [1m[33mUPDATE "review_cases" SET "type" = 'ReviewCase::Approved', "reviewed_by" = 'Tech Lead', "reviewed_at" = '2026-04-09 13:50:25.147814', "updated_at" = '2026-04-09 13:50:25.147853' WHERE "review_cases"."id" = 25 /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "review_cases" /*application='Ror'*/[0m
+  [1m[36mReviewCase::Approved Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "review_cases" WHERE "review_cases"."type" = 'ReviewCase::Approved' /*application='Ror'*/[0m
+  [1m[36mReviewCase::Rejected Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "review_cases" WHERE "review_cases"."type" = 'ReviewCase::Rejected' /*application='Ror'*/[0m
+  [1m[36mReviewCase::Escalated Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "review_cases" WHERE "review_cases"."type" = 'ReviewCase::Escalated' /*application='Ror'*/[0m
+  [1m[36mReviewCase Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "review_cases" WHERE "review_cases"."type" = 'ReviewCase' /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase Create (0.8ms)[0m  [1m[32mINSERT INTO "review_cases" ("type", "title", "description", "reviewed_by", "reviewed_at", "rejection_reason", "escalation_reason", "created_at", "updated_at") VALUES ('ReviewCase', 'Test Review', NULL, 'TBD', '2026-04-09 13:51:36.192568', NULL, NULL, '2026-04-09 13:51:36.204950', '2026-04-09 13:51:36.204950') RETURNING "id" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase::Approved Update (0.4ms)[0m  [1m[33mUPDATE "review_cases" SET "type" = 'ReviewCase::Approved', "reviewed_by" = 'Alice', "reviewed_at" = '2026-04-09 13:51:36.208600', "updated_at" = '2026-04-09 13:51:36.208685' WHERE "review_cases"."id" = 26 /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase Create (0.3ms)[0m  [1m[32mINSERT INTO "review_cases" ("type", "title", "description", "reviewed_by", "reviewed_at", "rejection_reason", "escalation_reason", "created_at", "updated_at") VALUES ('ReviewCase', 'Another Test', NULL, 'TBD', '2026-04-09 13:51:36.212207', NULL, NULL, '2026-04-09 13:51:36.212289', '2026-04-09 13:51:36.212289') RETURNING "id" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase::Rejected Update (0.3ms)[0m  [1m[33mUPDATE "review_cases" SET "type" = 'ReviewCase::Rejected', "reviewed_by" = 'Bob', "reviewed_at" = '2026-04-09 13:51:36.214272', "rejection_reason" = 'Insufficient details', "updated_at" = '2026-04-09 13:51:36.214343' WHERE "review_cases"."id" = 27 /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase Create (0.7ms)[0m  [1m[32mINSERT INTO "review_cases" ("type", "title", "description", "reviewed_by", "reviewed_at", "rejection_reason", "escalation_reason", "created_at", "updated_at") VALUES ('ReviewCase', 'Implement Feature X', NULL, 'TBD', '2026-04-09 13:54:33.825977', NULL, NULL, '2026-04-09 13:54:33.837291', '2026-04-09 13:54:33.837291') RETURNING "id" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase::Approved Update (0.5ms)[0m  [1m[33mUPDATE "review_cases" SET "type" = 'ReviewCase::Approved', "reviewed_by" = 'Alice', "reviewed_at" = '2026-04-09 13:54:33.840675', "updated_at" = '2026-04-09 13:54:33.840743' WHERE "review_cases"."id" = 28 /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase Create (0.3ms)[0m  [1m[32mINSERT INTO "review_cases" ("type", "title", "description", "reviewed_by", "reviewed_at", "rejection_reason", "escalation_reason", "created_at", "updated_at") VALUES ('ReviewCase', 'Bug Fix Proposal', NULL, 'TBD', '2026-04-09 13:54:33.844062', NULL, NULL, '2026-04-09 13:54:33.844128', '2026-04-09 13:54:33.844128') RETURNING "id" /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Ror'*/[0m
+  [1m[36mReviewCase::Rejected Update (0.3ms)[0m  [1m[33mUPDATE "review_cases" SET "type" = 'ReviewCase::Rejected', "reviewed_by" = 'Bob', "reviewed_at" = '2026-04-09 13:54:33.845968', "rejection_reason" = 'Needs more tests', "updated_at" = '2026-04-09 13:54:33.846056' WHERE "review_cases"."id" = 29 /*application='Ror'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Ror'*/[0m
