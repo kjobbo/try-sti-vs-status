@@ -23,14 +23,8 @@ class ReviewCase < ApplicationRecord
   validates :reviewed_by, presence: true
   validates :reviewed_at, presence: true
 
-  # State transitions using becomes!
-  def approve!(reviewer:)
-    new_record = becomes!(ReviewCase::Approved)
-    new_record.reviewed_by = reviewer
-    new_record.reviewed_at = Time.current
-    new_record.save!
-    new_record
-  end
+  # No transition methods - use becomes! directly in calling code
+  # Example: review.becomes!(ReviewCase::Approved)
 end
 ```
 
@@ -218,7 +212,7 @@ def log_rejection_metrics; end
 ### STI Approach
 
 ```ruby
-# No transition methods in base class - becomes! is called directly
+# Base class has NO transition methods - use becomes! directly in calling code
 
 # Pattern 1: Using subtype helper methods
 review = ReviewCase.create!(title: "Test", reviewed_by: "TBD", reviewed_at: Time.current)
@@ -237,6 +231,7 @@ approved.class  # => ReviewCase::Approved
 
 ✅ The record **becomes a different class** - true polymorphism.
 ✅ **Explicit `becomes!`** in calling code - clear type transition.
+✅ **No transition methods on base class** - subtype helpers handle attribute setting.
 
 ### Status Approach
 
@@ -351,8 +346,8 @@ But the **implementation path** is different:
 
 **STI:**
 ```
-review.approve!
-→ becomes!(ReviewCase::Approved)
+review.becomes!(ReviewCase::Approved)
+→ approve_by(reviewer: "Alice")
 → save!
 → ReviewCase::Approved#execute_post_approval_actions (separate callback)
 ```
